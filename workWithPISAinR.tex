@@ -1,0 +1,125 @@
+\documentclass{tufte-book}
+\usepackage{microtype}
+
+\usepackage[OT4,MeX]{polski}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} 
+
+\usepackage[colorlinks=true]{hyperref}
+\hypersetup{colorlinks}% uncomment this line if you prefer colored hyperlinks (e.g., for onscreen viewing)
+
+% Book metadata
+\title{ How to work with PISA data in R}
+\author[PBi]{PBi}
+\publisher{we will see}
+
+\setcounter{tocdepth}{3} 
+
+\input{tex/init.tex}
+
+% Generates the index
+\usepackage{makeidx}
+\makeindex
+
+\begin{document}
+
+% Front matter
+\frontmatter
+%
+%% v.2 epigraphs
+%\newpage\thispagestyle{empty}
+%\openepigraph{%
+%The greatest value of a picture is when it forces us to notice what we never expected to see.
+%}{John W. Tukey, {\itshape Exploratory Data Analysis, 1977.}%, {\itshape Design, Form, and Chaos}
+%}
+%\vfill
+%\openepigraph{%
+%We’re inventors - we’re creators. And that’s the most important thing about what we do. And I think we should welcome failure every once in a while.
+%}{Hannah Fairfield, {\itshape NYT Graphics Editor, Malofiej 2010.}}
+%\vfill
+%\openepigraph{%
+%Most people make the mistake of thinking design is what it looks like... People think it's this veneer -- that the designers are handed this box and told, 'Make it look good!' That's not what we think design is. It's not just what it looks like and feels like. Design is how it works.
+%}{Steve Jobs, {\itshape The New York Times, 2003}}
+
+\maketitle
+
+
+\newpage
+\begin{fullwidth}
+~\vfill
+\thispagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+Copyright \copyright\ \the\year\ \thanklessauthor
+
+\par\smallcaps{Published by \thanklesspublisher}
+
+\par\smallcaps{tufte-latex.googlecode.com}
+
+\par Creative Commons (Attribution)
+
+\par\textit{First printing, \monthyear}
+\end{fullwidth}
+
+% r.5 contents
+\tableofcontents
+
+%\listoffigures
+
+% \listoftables
+
+% r.7 dedication
+%\cleardoublepage
+%~\vfill
+%\begin{doublespace}
+%\noindent\fontsize{18}{22}\selectfont\itshape
+%\nohyphenation
+%Few words about PISA dataset
+%\end{doublespace}
+%\vfill
+%\vfill
+%
+
+% r.9 introduction
+\cleardoublepage
+
+\chapter{Introduction to PISA}
+Here there should be an introduction to the PISA data. Who is doing this study and why.
+
+Few words about data structure and availability \cite{PISAwebsite}.
+
+\chapter{Get your data}
+Here there should be an information how to download data from different editions.
+
+Why and when to use PISAtools package.
+
+Few words about filters for particular country or set of countries.
+
+\chapter{Data manipulation}
+Here there should be an information how to reshape data.
+
+Subselect variables, combine student and school datasets and similar things.
+
+\chapter{Statistical procedures}
+Here there should be an information how to do some simple statistics with the data.
+
+Like rankings, weighted averages, weighted regression.
+
+Maybe mixed effect model or generalized mixed effect model.
+
+\chapter{Data Visualisation}
+
+Some examples how to create charts with the use of this data. 
+
+\backmatter
+
+\chapter{Introduction to R}
+Very short introduction to R. With references to other materials.
+
+\bibliography{workWithPISAinR}
+\bibliographystyle{plainnat}
+
+\printindex
+
+\end{document}
+
