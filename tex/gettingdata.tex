@@ -1,6 +1,6 @@
 In order to work with PISA data in R you need to load the data first. There are at least two way how to do this.
 
-You can download raw data from PISA website \cite{PISAwebsite}. The raw data is available as compressed text files and you can read these files with the \verb:read.fwf(): function. \margin{The \texttt{read.fwf()} function is a standard way to read text files in the fixed width format.} 
+You can download raw data from PISA website \cite{PISAwebsite}. The raw data is available as compressed text files and you can read these files with the \texttt{read.fwf()} function. \footnote{The \texttt{read.fwf()} function is a standard way to read text files in the fixed width format.} 
 
 The second, much easier, approach is to install R package that already consists required data. There are two sets of packages that you may be interested in. Packages with PISA data and packages with supplementary functions that makes it easier to analyse this data set.
 
@@ -13,13 +13,13 @@ In order to install any of these data packages you will need the \verb:devtools:
 
 Suppose that you have the \verb:devtools: package. Than to get data from study PISA 2009 you need to run following commands.
 
-\begin{lstlistings}
+\begin{shaded}\begin{verbatim}
 library(devtools)
 install_github("PISA2009lite", "pbiecek")
-\end{lstlistings}
+\end{verbatim}\end{shaded}
 
 As a result you shall see an output like that:\margin{Depending on your Internet bandwidth it may take a while.}
-\begin{lstlistings}
+\begin{shaded}\begin{verbatim}
 Installing github repo(s) PISA2009lite/master from pbiecek
 Downloading PISA2009lite.zip from https://github.com/pbiecek/PISA2009lite/archive/master.zip
 Installing package from /var/folders/g3/j8pnss9j3130g4nhj31wxxm0000103/T//RtmptdZ54R/PISA2009lite.zip
@@ -38,16 +38,16 @@ Installing PISA2009lite
 ** building package indices
 ** testing if installed package can be loaded
 * DONE (PISA2009lite)
-\end{lstlistings}
+\end{verbatim}\end{shaded}
 
 If there is not \verb:ERROR: in your output it looks like everything went smoothly. The package is installed. In order to work with it you need to load it. Use the \verb:library(): function for that.
-\begin{lstlistings}
+\begin{shaded}\begin{verbatim}
 library(PISA2009lite)
-\end{lstlistings}
+\end{verbatim}\end{shaded}
 
 You will find five data sets in this package [actually ten, I will explain this later]. These are: data from student questionnaire, school questionnaire, parent questionnaire, cognitive items and scored cognitive items.
 
-\begin{lstlistings}
+\begin{shaded}\begin{verbatim}
 dim(student2009)
 ## [1] 515958    437
 dim(parent2009)
@@ -58,38 +58,65 @@ dim(item2009)
 ## [1] 515958    273
 dim(scoredItem2009)
 ## [1] 515958    227
-\end{lstlistings}
+\end{verbatim}\end{shaded}
 
 For most of variables in each data set there is a dictionary which decode answers for particular question. Dictionaries for all questions for a given data set are stored as a list of named vectors, these lists are named after corresponding data sets [just add suffix 'dict'].
 
 For example fist six entries in a dictionary for variable CNT in the data set \verb:student2009:.
-\begin{lstlistings}
-head(student2009dict$CNT)
+\begin{shaded}\begin{verbatim}
+head(student2009dict\$CNT)
 ##          ALB          ARG          AUS          AUT          AZE 
 ##    "Albania"  "Argentina"  "Australia"    "Austria" "Azerbaijan" 
 ##          BEL 
 ##    "Belgium"
-\end{lstlistings}
+\end{verbatim}\end{shaded}
 
 \subsection{Selecting a subset of countries}
 In some cases you would not work on whole datasets, but only on some subset of countries. You can do this by subseting the dataset. For example, let's take only three countries out of the dataset
 
-\begin{lstlistings}
+\begin{shaded}\begin{verbatim}
 student2009selected <- subset(student2009, CNT %in% c("ITA", "FRA", "POL"))
 dim(student2009selected)
 ## [1] 40120   437
-\end{lstlistings}
+\end{verbatim}\end{shaded}
 
 
 \section{R packages with supplementary functions}
 To make it easier to work with PISA data you may use the package \verb:PISAtools:. The installation is similar to the installation of dataset.
 
-\begin{lstlistings}
+\begin{shaded}\begin{verbatim}
 library(devtools)
 install_github("PISAtools", "pbiecek")
 library(PISAtools)
-\end{lstlistings}
+\end{verbatim}\end{shaded}
 
 And the package is ready to use.
-In next chapters we wll show some usefull functions that avaliable there.
+In next chapters we will show some useful functions that are available there.
+
+\section{Additional datasets}
+
+In the \verb:PISAtools: package you will find some additional dataset that might be helpful when working with PISA data. Let's introduce them one by one.
+
+\subsection{dataset: countryOntology}
+This ontology was derived from FAO website \cite{FAOwebsite}. It contains information about 211 countries. It may be usefull to verify to which group a given country belongs. Let's see columns in this dataset.
+
+\begin{shaded}\begin{verbatim}
+head(countryOntology,2)
+\end{verbatim}\end{shaded}
+
+Last column \verb:IS_IN_GROUP: describes to which groups given country belongs. Other columns are just different classifications of particular country. 
+
+\begin{shaded}\begin{verbatim}
+  ISO3 ISO2 UN_CODE UNDP_CODE FAOSTAT_CODE GAUL_CODE FAOTERM_CODE AGROVOC_CODE NAME_EN
+1  GRD   GD     308       GRN           86        99        15417         3384 Grenada
+2  LBY   LY     434       LIB          124       145        15442         4312   Libya
+  LISTNAME_EN
+1     Grenada
+2       Libya
+                                                                        IS_IN_GROUP
+1 "FAO_2006,CARICOM_1985,World,CARICOM,CARIFORUM,NFIDC,Americas,Caribbean,FAO,SIDS"
+2                        "CEN_SAD,CAEU,World,AMU,northern_Africa,Africa,FAO,COMESA"
+\end{verbatim}\end{shaded}
+
+
 
