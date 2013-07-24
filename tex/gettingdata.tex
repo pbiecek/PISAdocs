@@ -1,0 +1,95 @@
+In order to work with PISA data in R you need to load the data first. There are at least two way how to do this.
+
+You can download raw data from PISA website \cite{PISAwebsite}. The raw data is available as compressed text files and you can read these files with the \verb:read.fwf(): function. \margin{The \texttt{read.fwf()} function is a standard way to read text files in the fixed width format.} 
+
+The second, much easier, approach is to install R package that already consists required data. There are two sets of packages that you may be interested in. Packages with PISA data and packages with supplementary functions that makes it easier to analyse this data set.
+
+\section{R packages with PISA data}
+Right now there are There are five packages with PISA data. Each package contains data from single PISA study. These packages have following names: \verb:PISA2000lite:, \verb:PISA2003lite:, \verb:PISA2006lite:, \verb:PISA2009lite:, \verb:PISA2012lite:.
+
+Installation of R package requires the download first. Since the datasets are large be prepared to download about 200MB from Internet. But you need to do this only once. per dataset.
+
+In order to install any of these data packages you will need the \verb:devtools: package. In the chapter \ref{sec:introToR} you will find more details how to install that one.
+
+Suppose that you have the \verb:devtools: package. Than to get data from study PISA 2009 you need to run following commands.
+
+\begin{lstlistings}
+library(devtools)
+install_github("PISA2009lite", "pbiecek")
+\end{lstlistings}
+
+As a result you shall see an output like that:\margin{Depending on your Internet bandwidth it may take a while.}
+\begin{lstlistings}
+Installing github repo(s) PISA2009lite/master from pbiecek
+Downloading PISA2009lite.zip from https://github.com/pbiecek/PISA2009lite/archive/master.zip
+Installing package from /var/folders/g3/j8pnss9j3130g4nhj31wxxm0000103/T//RtmptdZ54R/PISA2009lite.zip
+Installing PISA2009lite
+'/Library/Frameworks/R.framework/Resources/bin/R' --vanilla CMD INSTALL  \
+  '/private/var/folders/g3/j8pnss9j3130g4nhj31wxxm0000103/T/RtmptdZ54R/PISA2009lite-master'  \
+  --library='/Library/Frameworks/R.framework/Versions/3.0/Resources/library'  \
+  --with-keep.source --install-tests 
+
+* installing *source* package 'PISA2009lite' ...
+** data
+*** moving datasets to lazyload DB
+** demo
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (PISA2009lite)
+\end{lstlistings}
+
+If there is not \verb:ERROR: in your output it looks like everything went smoothly. The package is installed. In order to work with it you need to load it. Use the \verb:library(): function for that.
+\begin{lstlistings}
+library(PISA2009lite)
+\end{lstlistings}
+
+You will find five data sets in this package [actually ten, I will explain this later]. These are: data from student questionnaire, school questionnaire, parent questionnaire, cognitive items and scored cognitive items.
+
+\begin{lstlistings}
+dim(student2009)
+## [1] 515958    437
+dim(parent2009)
+## [1] 106287     90
+dim(school2009)
+## [1] 18641   247
+dim(item2009)
+## [1] 515958    273
+dim(scoredItem2009)
+## [1] 515958    227
+\end{lstlistings}
+
+For most of variables in each data set there is a dictionary which decode answers for particular question. Dictionaries for all questions for a given data set are stored as a list of named vectors, these lists are named after corresponding data sets [just add suffix 'dict'].
+
+For example fist six entries in a dictionary for variable CNT in the data set \verb:student2009:.
+\begin{lstlistings}
+head(student2009dict$CNT)
+##          ALB          ARG          AUS          AUT          AZE 
+##    "Albania"  "Argentina"  "Australia"    "Austria" "Azerbaijan" 
+##          BEL 
+##    "Belgium"
+\end{lstlistings}
+
+\subsection{Selecting a subset of countries}
+In some cases you would not work on whole datasets, but only on some subset of countries. You can do this by subseting the dataset. For example, let's take only three countries out of the dataset
+
+\begin{lstlistings}
+student2009selected <- subset(student2009, CNT %in% c("ITA", "FRA", "POL"))
+dim(student2009selected)
+## [1] 40120   437
+\end{lstlistings}
+
+
+\section{R packages with supplementary functions}
+To make it easier to work with PISA data you may use the package \verb:PISAtools:. The installation is similar to the installation of dataset.
+
+\begin{lstlistings}
+library(devtools)
+install_github("PISAtools", "pbiecek")
+library(PISAtools)
+\end{lstlistings}
+
+And the package is ready to use.
+In next chapters we wll show some usefull functions that avaliable there.
+
