@@ -1,14 +1,156 @@
-
-
 \section{Rankings}
 
-\begin{verbatim}
+First we will see how to create ranking for countries.
+It's easy to do this for all countries, but since there is a lot of them in order to save space we will do this for european countries only.
 
-\end{verbatim}
+So first, let's subselect only european countries. The dataset PISAeurope will have the sale variables like student2009 but only rows for students from Europe. \footnote{In remaining examples you can replace PISAeurope by student2009 and then you will get ranking for all countries.}
+\begin{shaded}\begin{verbatim}
+europe <- getCountryIdsFromRegion(region="Europe")
+PISAeurope <- student2009[student2009$CNT %in% europe, ]
+\end{verbatim}\end{shaded}
 
- Here there should be an information how to do some simple statistics with the data.
+First let's calculate weighted average performance for all these countries. You can do this with the function \verb:getWeightedAverages():. You need to specify three arguments. Variables with performance (here Plausible values form Math, Reading and Science), grouping variable (here country) and weights.
 
-Like rankings, weighted averages, weighted regression.
+As a result you will get data.frame with weighted averages.
+
+\begin{shaded}\begin{verbatim}
+getWeightedAverages(PISAeurope[,c("PV1MATH", "PV1READ", "PV1SCIE")], 
+       factor(PISAeurope$CNT), PISAeurope$W_FSTUWT)
+       
+     PV1MATH  PV1READ  PV1SCIE
+ALB 376.8412 384.8553 390.0552
+AUT 495.3798 470.0181 494.3429
+BEL 515.6946 506.0709 506.9133
+BGR 427.8899 428.7424 439.2365
+CHE 535.0264 500.1675 517.0095
+CZE 492.5683 478.3270 500.8206
+DEU 512.0990 497.2816 520.2056
+DNK 503.2260 495.2494 498.9904
+ESP 483.7105 480.9529 488.4244
+EST 512.0336 500.3432 527.5742
+FIN 540.4180 535.5694 553.6443
+FRA 496.7549 495.3661 497.8581
+GBR 492.5210 493.9524 513.6889
+GRC 465.4492 481.8291 469.3762
+HRV 460.6449 475.8268 486.8437
+HUN 489.9584 494.2865 502.2476
+IRL 487.3271 495.9401 508.2677
+ISL 507.3673 500.5733 495.6023
+ITA 483.2503 486.3324 489.2809
+LIE 533.6883 498.4257 518.5018
+LTU 476.4921 467.9608 490.9942
+LUX 488.1766 471.1547 483.1795
+LVA 481.4847 483.5472 492.8094
+MDA 397.3944 388.2060 413.1806
+MLT 462.5997 442.1508 461.3761
+MNE 402.7139 407.0327 401.5027
+NLD 525.8939 508.1992 522.6339
+NOR 497.5454 503.0985 499.1366
+POL 494.2307 500.1981 507.4326
+PRT 487.2701 489.1076 492.8555
+ROU 426.4127 424.4139 428.0784
+RUS 467.9225 459.4349 478.5926
+SRB 442.6190 442.3280 442.8573
+SVK 496.7076 477.4750 490.9146
+SVN 501.0395 482.7662 511.2549
+SWE 493.8699 497.7079 494.8899
+\end{verbatim}\end{shaded}
+
+But initially we were going to derive rankings. It's straight forward. Just use \verb:getRanking(): with same options like for \verb:getWeightedAverages():.
+
+\begin{shaded}\begin{verbatim}
+getRanking(PISAeurope[,c("PV1MATH", "PV1READ", "PV1SCIE")], 
+                  factor(PISAeurope$CNT), PISAeurope$W_FSTUWT)
+                  
+    PV1MATH PV1READ PV1SCIE
+ALB      36      36      36
+AUT      14      27      19
+BEL       5       3      11
+BGR      32      32      32
+CHE       2       8       6
+CZE      17      23      13
+DEU       6      11       4
+DNK       9      14      15
+ESP      23      22      25
+EST       7       6       2
+FIN       1       1       1
+FRA      12      13      16
+GBR      18      16       7
+GRC      28      21      29
+HRV      30      25      26
+HUN      19      15      12
+IRL      21      12       9
+ISL       8       5      17
+ITA      24      18      24
+LIE       3       9       5
+LTU      26      28      22
+LUX      20      26      27
+LVA      25      19      21
+MDA      35      35      34
+MLT      29      31      30
+MNE      34      34      35
+NLD       4       2       3
+NOR      11       4      14
+POL      15       7      10
+PRT      22      17      20
+ROU      33      33      33
+RUS      27      29      28
+SRB      31      30      31
+SVK      13      24      23
+SVN      10      20       8
+SWE      16      10      18
+\end{verbatim}\end{shaded}
+
+Note that there is an optional argument \verb:sort:. You can select the column according to which rows should be sorted (by default they are sorted alphabetically).
+
+\begin{shaded}\begin{verbatim}
+getRanking(PISAeurope[,c("PV1MATH", "PV1READ", "PV1SCIE")], 
+               factor(PISAeurope$CNT), PISAeurope$W_FSTUWT, sort=1)
+               
+    PV1MATH PV1READ PV1SCIE
+FIN       1       1       1
+CHE       2       8       6
+LIE       3       9       5
+NLD       4       2       3
+BEL       5       3      11
+DEU       6      11       4
+EST       7       6       2
+ISL       8       5      17
+DNK       9      14      15
+SVN      10      20       8
+NOR      11       4      14
+FRA      12      13      16
+SVK      13      24      23
+AUT      14      27      19
+POL      15       7      10
+SWE      16      10      18
+CZE      17      23      13
+GBR      18      16       7
+HUN      19      15      12
+LUX      20      26      27
+IRL      21      12       9
+PRT      22      17      20
+ESP      23      22      25
+ITA      24      18      24
+LVA      25      19      21
+LTU      26      28      22
+RUS      27      29      28
+GRC      28      21      29
+MLT      29      31      30
+HRV      30      25      26
+SRB      31      30      31
+BGR      32      32      32
+ROU      33      33      33
+MNE      34      34      35
+MDA      35      35      34
+ALB      36      36      36
+\end{verbatim}\end{shaded}
+
+
+
+Here there should be an information how to do some simple statistics with the data.
+
+Like weighted regression.
 
 Maybe mixed effect model or generalized mixed effect model.
 
