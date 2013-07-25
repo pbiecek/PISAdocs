@@ -118,5 +118,12 @@ Last column \verb:IS_IN_GROUP: describes to which groups given country belongs. 
 2                        "CEN_SAD,CAEU,World,AMU,northern_Africa,Africa,FAO,COMESA"
 \end{verbatim}\end{shaded}
 
+You can access the information easily with the function \verb:getCountryIdsFromRegion():. Then you can specify from which region/group of countries you would like to get data. As a result you will get a set of country IDs.
 
+For example, which countries are classified as countries from Western Europe?\footnote{These names are case insensitive}.
+
+\begin{shaded}\begin{verbatim}
+getCountryIdsFromRegion(region="western_Europe")
+## [1] "LUX" "CHE" "DEU" "NLD" "FRA" "MCO" "LIE" "AUT" "BEL"
+\end{verbatim}\end{shaded}
 
