@@ -18,7 +18,7 @@ library(devtools)
 install_github("PISA2009lite", "pbiecek")
 \end{verbatim}\end{shaded}
 
-As a result you shall see an output like that:\margin{Depending on your Internet bandwidth it may take a while.}
+As a result you shall see an output like that:\footnote{Depending on your Internet bandwidth it may take a while.}
 \begin{shaded}\begin{verbatim}
 Installing github repo(s) PISA2009lite/master from pbiecek
 Downloading PISA2009lite.zip from https://github.com/pbiecek/PISA2009lite/archive/master.zip
@@ -71,7 +71,7 @@ head(student2009dict\$CNT)
 ##    "Belgium"
 \end{verbatim}\end{shaded}
 
-\subsection{Selecting a subset of countries}
+\subsection*{Selecting a subset of countries}
 In some cases you would not work on whole datasets, but only on some subset of countries. You can do this by subseting the dataset. For example, let's take only three countries out of the dataset
 
 \begin{shaded}\begin{verbatim}
@@ -80,7 +80,7 @@ dim(student2009selected)
 ## [1] 40120   437
 \end{verbatim}\end{shaded}
 
-\subsection{Differences between PISA datasets}
+\subsection*{Differences between PISA datasets}
 
 There are some differences between different PISA releases. 
 
@@ -88,7 +88,7 @@ In PISA 2000 there are three datasets \verb:math2000:, \verb:read2000:, \verb:sc
 All of them contains answers from students questionnaire. In following PISA studies there is a single \verb:student20xx: dataset with outcomes from all areas.
 
 
-\section{R packages with supplementary functions}
+\section{PISAtools: package with supplementary functions}
 To make it easier to work with PISA data you may use the package \verb:PISAtools:. The installation is similar to the installation of dataset.
 
 \begin{shaded}\begin{verbatim}
@@ -100,12 +100,12 @@ library(PISAtools)
 And the package is ready to use.
 In next chapters we will show some useful functions that are available there.
 
-\section{Additional datasets}
+\section*{Additional datasets}
 
 In the \verb:PISAtools: package you will find some additional dataset that might be helpful when working with PISA data. Let's introduce them one by one.
 
-\subsection{dataset: countryOntology}
-This ontology was derived from FAO website \cite{FAOwebsite}. It contains information about 211 countries. It may be usefull to verify to which group a given country belongs. Let's see columns in this dataset.
+\subsection*{dataset: countryOntology}
+This ontology was derived from FAO website \cite{FAOwebsite}. It contains information about 211 countries. It may be useful to verify to which group a given country belongs. Let's see columns in this dataset.
 
 \begin{shaded}\begin{verbatim}
 head(countryOntology,2)

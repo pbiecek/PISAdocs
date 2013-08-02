@@ -83,17 +83,17 @@ Copyright \copyright\ \the\year\ \thanklessauthor
 \cleardoublepage
 
 \chapter{Introduction to PISA}
-Here there should be an introduction to the PISA data. Who is doing this study and why.
+\label{sec:introToPISA}
+\input{tex/introtoPISA.tex}
 
-Few words about data structure and availability \cite{PISAwebsite} \cite{OECDwebsite}.
+\chapter{Introduction to R}
+\label{sec:introToR}
+\input{tex/introtor.tex}
+
 
 \chapter{Get your data}
 \input{tex/gettingdata.tex}
 
-\chapter{Data manipulation}
-Here there should be an information how to reshape data.
-
-Subselect variables, combine student and school datasets and similar things.
 
 \chapter{Statistical procedures}
 \input{tex/statistics.tex}
@@ -104,9 +104,6 @@ Some examples how to create charts with the use of this data.
 
 \backmatter
 
-\chapter{Introduction to R}
-\label{sec:introToR}
-Very short introduction to R. With references to other materials.
 
 \bibliography{workWithPISAinR}
 \bibliographystyle{plainnat}
